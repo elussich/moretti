@@ -1,5 +1,5 @@
 import { shuffle } from "../services/utils.js";
-import Column from "./Column.js";
+import CardGroup from "./CardGroup.js";
 import Card from "./Card.js";
 
 export default class Pack {
@@ -11,7 +11,7 @@ export default class Pack {
   createColumns() {
     this.columns = [];
     for (let i = 0; i < 8; i++) {
-      this.columns[i] = new Column();
+      this.columns[i] = new CardGroup();
     }
   }
 

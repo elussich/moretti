@@ -1,9 +1,9 @@
-export default class Column {
+export default class CardGroup {
   constructor() {
     this.cards = [];
   }
   add(card) {
     this.cards.push(card);
-    console.log("Column.add()", card);
+    console.log("CardGroup.add()", card);
   }
 }

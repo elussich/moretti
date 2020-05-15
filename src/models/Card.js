@@ -6,4 +6,22 @@ export default class Card {
     this.id = `${figure}-${number}`;
     this.name = `${number} de ${figure}`;
   }
+  get symbol() {
+    let str;
+    switch (this.figure) {
+      case "oros":
+        str = "🌞";
+        break;
+      case "copas":
+        str = "🍷";
+        break;
+      case "espadas":
+        str = "⚔️";
+        break;
+      case "bastos":
+        str = "🌵";
+        break;
+    }
+    return str;
+  }
 }
