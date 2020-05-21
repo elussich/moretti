@@ -4,6 +4,5 @@ export default class CardGroup {
   }
   add(card) {
     this.cards.push(card);
-    console.log("CardGroup.add()", card);
   }
 }

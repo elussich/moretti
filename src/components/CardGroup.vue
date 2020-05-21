@@ -1,5 +1,11 @@
 <template>
-  <draggable :sort="sort || false" :list="cards" :group="group" @change="change">
+  <draggable
+    :sort="sort || false"
+    :list="cardGroup.cards"
+    :group="group"
+    @change="change"
+    :move="move"
+  >
     <Card
       v-for="(card, index) in cards"
       :key="card.id"
@@ -12,6 +18,7 @@
 
 <script>
 import draggable from "vuedraggable";
+import CardGroup from "../models/CardGroup.js";
 import Card from "./Card.vue";
 
 export default {
@@ -21,10 +28,19 @@ export default {
     Card
   },
   props: {
-    cards: Array,
+    cardGroup: CardGroup,
     group: String,
     change: Function,
+    move: {
+      type: Function,
+      required: false
+    },
     sort: Boolean
+  },
+  data() {
+    return {
+      cards: this.cardGroup.cards
+    };
   }
 };
 </script>

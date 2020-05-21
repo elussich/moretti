@@ -2,6 +2,9 @@ import { shuffle } from "../services/utils.js";
 import CardGroup from "./CardGroup.js";
 import Card from "./Card.js";
 
+const COL_NUM = 8;
+const CARDS_NUM = 40;
+
 export default class Pack {
   constructor(cards) {
     this.createColumns();
@@ -10,18 +13,19 @@ export default class Pack {
 
   createColumns() {
     this.columns = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < COL_NUM; i++) {
       this.columns[i] = new CardGroup();
     }
   }
 
   dealCards(cards) {
+    const cardsPerColumn = CARDS_NUM / COL_NUM;
     let counter = 0;
     let columnCount = 0;
-    while (counter < 40) {
+    while (counter < CARDS_NUM) {
       this.columns[columnCount].add(new Card(cards[counter]));
       counter++;
-      if (counter % 5 === 0) {
+      if (counter % cardsPerColumn === 0) {
         columnCount++;
       }
     }

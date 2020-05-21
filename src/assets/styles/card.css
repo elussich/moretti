@@ -1,0 +1,8 @@
+.card {
+  height: 200px;
+  margin-bottom: -140px;
+}
+
+.card--on-well {
+  margin-bottom: 0;
+}

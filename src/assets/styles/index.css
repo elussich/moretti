@@ -3,3 +3,5 @@
 /* purgecss end ignore */
 
 @tailwind utilities;
+
+@import "./card.css";
