@@ -10,7 +10,7 @@ export default class Wells {
   createWells() {
     this.wells = [];
     for (let i = 0; i < WELL_NUM; i++) {
-      this.wells[i] = new Well();
+      this.wells[i] = new Well(i);
     }
   }
 

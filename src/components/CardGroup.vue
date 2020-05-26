@@ -1,46 +1,49 @@
 <template>
-  <draggable
-    :sort="sort || false"
-    :list="cardGroup.cards"
-    :group="group"
-    @change="change"
-    :move="move"
-  >
+  <div v-on:dragover="onDragOver" v-on:drop="onDrop">
     <Card
-      v-for="(card, index) in cards"
+      v-for="card in cardGroup.cards"
       :key="card.id"
       :card="card"
-      :index="index"
+      :draggable="isDraggable(card)"
     >
     </Card>
-  </draggable>
+  </div>
 </template>
 
 <script>
-import draggable from "vuedraggable";
 import CardGroup from "../models/CardGroup.js";
 import Card from "./Card.vue";
 
 export default {
   name: "CardGroup",
   components: {
-    draggable,
     Card
   },
   props: {
     cardGroup: CardGroup,
-    group: String,
-    change: Function,
-    move: {
-      type: Function,
-      required: false
-    },
-    sort: Boolean
+    onDroppedCard: Function
   },
-  data() {
-    return {
-      cards: this.cardGroup.cards
-    };
+  methods: {
+    isDraggable(card) {
+      return this.cardGroup.isLast(card);
+    },
+    onDragOver() {
+      // @todo abstract out this logic
+      const lastCard = this.cardGroup.cards[this.cardGroup.cards.length - 1];
+      const draggedCardNumber = +event.dataTransfer.getData("cardNumber");
+      const draggedCardFigure = event.dataTransfer.getData("cardFigure");
+      if (
+        draggedCardFigure !== lastCard.figure &&
+        draggedCardNumber + 1 === lastCard.number
+      ) {
+        event.preventDefault();
+      }
+    },
+    onDrop(event) {
+      event.preventDefault();
+      const cardId = event.dataTransfer.getData("cardId");
+      this.onDroppedCard(cardId, this.cardGroup.index);
+    }
   }
 };
 </script>

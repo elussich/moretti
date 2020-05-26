@@ -6,9 +6,7 @@
         v-for="(cardGroup, index) in pack.columns"
         :key="index"
         :cardGroup="cardGroup"
-        :group="'cards'"
-        v-bind:change="log"
-        v-bind:move="move"
+        v-bind:onDroppedCard="onDroppedCard"
       />
     </div>
     <div class="w-2/12 pl-4 border-l border-gray-400">
@@ -18,9 +16,6 @@
         v-for="(well, index) in wells.columns"
         :key="index"
         :cardGroup="well"
-        :cards="well"
-        :group="'cards'"
-        v-bind:change="log"
       />
     </div>
   </div>
@@ -48,20 +43,9 @@ export default {
     };
   },
   methods: {
-    log: function(evt) {
-      window.console.log("log", evt);
-    },
-    move: function(evt) {
-      let draggedCard = evt.draggedContext.element;
-      let destCard = evt.relatedContext.element;
-      window.console.log("move", evt);
-      window.console.log("vm", evt.relatedContext.component);
-      let destList = evt.relatedContext.list;
-      window.console.log(
-        "destination list last element",
-        destList[destList.length - 1]
-      );
-      return destCard.number === draggedCard.number + 1 && destCard.figure !== draggedCard.figure;
+    onDroppedCard(cardId, cardGroupIndex) {
+      const card = this.pack.removeCardById(cardId);
+      this.pack.addCardToColumn(card, cardGroupIndex);
     }
   }
 };

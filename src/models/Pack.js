@@ -14,7 +14,7 @@ export default class Pack {
   createColumns() {
     this.columns = [];
     for (let i = 0; i < COL_NUM; i++) {
-      this.columns[i] = new CardGroup();
+      this.columns[i] = new CardGroup(i);
     }
   }
 
@@ -29,6 +29,22 @@ export default class Pack {
         columnCount++;
       }
     }
+  }
+
+  removeCardById(cardId) {
+    let card;
+    this.columns.find(column => {
+      card = column.findById(cardId);
+      if (card) {
+        column.remove(card);
+      }
+      return card;
+    });
+    return card;
+  }
+
+  addCardToColumn(card, columnIndex) {
+    this.columns[columnIndex].add(card);
   }
 
   serialize() {
