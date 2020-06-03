@@ -46,8 +46,4 @@ export default class Pack {
   addCardToColumn(card, columnIndex) {
     this.columns[columnIndex].add(card);
   }
-
-  serialize() {
-    return this.columns.map(column => column.cards);
-  }
 }

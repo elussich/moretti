@@ -3,6 +3,7 @@
   margin-bottom: -140px;
 }
 
-.card--on-well {
-  margin-bottom: 0;
+.card--in-well {
+  position: absolute;
+  width: 100%;
 }

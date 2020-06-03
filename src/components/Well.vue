@@ -1,14 +1,10 @@
 <template>
-  <div
-    v-on:dragover="onDragOver"
-    v-on:drop="onDrop"
-    v-bind:class="cardGroupClass"
-  >
+  <div v-on:dragover="onDragOver" v-on:drop="onDrop" class="relative">
     <Card
+      class="card--in-well"
       v-for="card in cardGroup.cards"
       :key="card.id"
       :card="card"
-      :draggable="isDraggable(card)"
     >
     </Card>
   </div>
@@ -19,7 +15,7 @@ import CardGroup from "../models/CardGroup.js";
 import Card from "./Card.vue";
 
 export default {
-  name: "CardGroup",
+  name: "Well",
   components: {
     Card
   },
@@ -27,34 +23,22 @@ export default {
     cardGroup: CardGroup,
     onDroppedCard: Function
   },
-  computed: {
-    cardGroupClass() {
-      return this.cardGroup.cards.length === 0
-        ? [
-            "border-gray-100",
-            "bg-gray-100",
-            "border",
-            "rounded-lg",
-            "shadow-inner",
-            "column--empty"
-          ]
-        : [];
-    }
-  },
   methods: {
-    isDraggable(card) {
-      return this.cardGroup.isLast(card);
-    },
     onDragOver() {
       // @todo abstract out this logic
       const lastCard = this.cardGroup.cards[this.cardGroup.cards.length - 1];
       const draggedCardNumber = +event.dataTransfer.getData("cardNumber");
       const draggedCardFigure = event.dataTransfer.getData("cardFigure");
+      if (this.cardGroup.cards.length === 0 && draggedCardNumber === 1) {
+        console.log("well is empty and dragged card is a 1");
+        event.preventDefault();
+      }
       if (
         lastCard &&
-        draggedCardFigure !== lastCard.figure &&
-        draggedCardNumber + 1 === lastCard.number
+        draggedCardNumber === lastCard.number + 1 &&
+        draggedCardFigure === lastCard.figure
       ) {
+        console.log("well has card(s) and dragged card is a sucesive");
         event.preventDefault();
       }
     },

@@ -1,6 +1,6 @@
 import Well from "./Well.js";
 
-const WELL_NUM = 8;
+const WELL_NUM = 4;
 
 export default class Wells {
   constructor() {
@@ -14,7 +14,7 @@ export default class Wells {
     }
   }
 
-  serialize() {
-    return this.wells.map(well => well.cards);
+  addCardToWell(card, wellIndex) {
+    this.wells[wellIndex].add(card);
   }
 }

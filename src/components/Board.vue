@@ -11,18 +11,22 @@
     </div>
     <div class="w-2/12 pl-4 border-l border-gray-400">
       <h3 class="mb-4">Pozos</h3>
-      <CardGroup
-        class="block w-full h-12 bg-gray-100 mb-2 shadow-inner"
-        v-for="(well, index) in wells.columns"
-        :key="index"
-        :cardGroup="well"
-      />
+      <div class="grid grid-cols-2 gap-3">
+        <Well
+          class="bg-gray-100 shadow-inner column--empty"
+          v-for="(well, index) in wells.wells"
+          :key="index"
+          :cardGroup="well"
+          v-bind:onDroppedCard="onDroppedCardInWell"
+        />
+    </div>
     </div>
   </div>
 </template>
 
 <script>
 import CardGroup from "./CardGroup.vue";
+import Well from "./Well.vue";
 import Cards from "../models/Cards.js";
 import Pack from "../models/Pack.js";
 import Wells from "../models/Wells.js";
@@ -34,7 +38,8 @@ export default {
   name: "Board",
   order: 1,
   components: {
-    CardGroup
+    CardGroup,
+    Well
   },
   data() {
     return {
@@ -43,9 +48,13 @@ export default {
     };
   },
   methods: {
-    onDroppedCard(cardId, cardGroupIndex) {
+    onDroppedCard(cardId, columnIndex) {
       const card = this.pack.removeCardById(cardId);
-      this.pack.addCardToColumn(card, cardGroupIndex);
+      this.pack.addCardToColumn(card, columnIndex);
+    },
+    onDroppedCardInWell(cardId, wellIndex) {
+      const card = this.pack.removeCardById(cardId);
+      this.wells.addCardToWell(card, wellIndex);
     }
   }
 };

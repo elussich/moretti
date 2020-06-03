@@ -5,3 +5,4 @@
 @tailwind utilities;
 
 @import "./card.css";
+@import "./column.css";
