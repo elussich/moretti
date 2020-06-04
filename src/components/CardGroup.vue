@@ -43,18 +43,25 @@ export default {
   },
   methods: {
     isDraggable(card) {
-      return this.cardGroup.isLast(card);
+      return this.cardGroup.isLast(card) || this.cardGroup.isLadderHead(card);
     },
     onDragOver() {
-      // @todo abstract out this logic
+      // @todo abstract out this logic, should it be actually moved to the models?
       const lastCard = this.cardGroup.cards[this.cardGroup.cards.length - 1];
       const draggedCardNumber = +event.dataTransfer.getData("cardNumber");
       const draggedCardFigure = event.dataTransfer.getData("cardFigure");
+
+      // if column is not empty, and dragged card is of different figure, and next in number
       if (
         lastCard &&
         draggedCardFigure !== lastCard.figure &&
         draggedCardNumber + 1 === lastCard.number
       ) {
+        event.preventDefault();
+      }
+
+      // if column is empty, and dragged card is a ten
+      if (draggedCardNumber === 10 && !this.cardGroup.cards.length) {
         event.preventDefault();
       }
     },

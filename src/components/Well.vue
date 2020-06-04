@@ -29,16 +29,18 @@ export default {
       const lastCard = this.cardGroup.cards[this.cardGroup.cards.length - 1];
       const draggedCardNumber = +event.dataTransfer.getData("cardNumber");
       const draggedCardFigure = event.dataTransfer.getData("cardFigure");
+
+      // if well is empty and dragged card is an ace
       if (this.cardGroup.cards.length === 0 && draggedCardNumber === 1) {
-        console.log("well is empty and dragged card is a 1");
         event.preventDefault();
       }
+
+      // if well has cards and dragged card is next
       if (
         lastCard &&
         draggedCardNumber === lastCard.number + 1 &&
         draggedCardFigure === lastCard.figure
       ) {
-        console.log("well has card(s) and dragged card is a sucesive");
         event.preventDefault();
       }
     },
