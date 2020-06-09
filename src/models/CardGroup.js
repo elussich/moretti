@@ -4,21 +4,25 @@ export default class CardGroup {
     this.cards = [];
   }
   add(card) {
+    card.setGroup(this);
     this.cards.push(card);
 
     let secondLast = this.cards[this.cards.length - 2];
     if (secondLast) {
       // check if added card is part of a ladder
-      if (secondLast.ladder) {
+      // @todo don't trigger at drawing time
+      if (secondLast.ladder && !card.ladder && secondLast.number === card.number + 1) {
         card.ladder = true;
         console.log(`${card.number} of ${card.figure} added to ladder`);
         console.log(this.cards);
+        return;
       }
       // check if added card generates a ladder
       if (
         !secondLast.ladder &&
         secondLast.number === 10 &&
         card.number === 9 &&
+        !card.ladder &&
         secondLast.figure !== card.figure
       ) {
         secondLast.ladder = true;
@@ -28,6 +32,7 @@ export default class CardGroup {
           `added ${card.number} of ${card.figure} to a ${secondLast.number} of ${secondLast.figure}, ...you just built a ladder!`
         );
         console.log(this.cards);
+        return;
       }
     }
   }
@@ -37,7 +42,10 @@ export default class CardGroup {
       this.cards.splice(index, 1);
     }
   }
-  findById(cardId) {
+  removeLadder() {
+    this.cards = this.cards.filter(card => !card.ladder);
+  }
+  findCardById(cardId) {
     return this.cards.find(card => card.id === cardId);
   }
   isLast(card) {
@@ -45,5 +53,8 @@ export default class CardGroup {
   }
   isLadderHead(card) {
     return card.number === 10 && card.ladder;
+  }
+  getLadder() {
+    return this.cards.filter(card => card.ladder);
   }
 }

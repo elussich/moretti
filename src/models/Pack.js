@@ -31,19 +31,17 @@ export default class Pack {
     }
   }
 
-  removeCardById(cardId) {
-    let card;
-    this.columns.find(column => {
-      card = column.findById(cardId);
-      if (card) {
-        column.remove(card);
-      }
-      return card;
-    });
-    return card;
+  findCardById(cardId) {
+    return this.columns
+      .find(column => column.findCardById(cardId))
+      .findCardById(cardId);
   }
 
   addCardToColumn(card, columnIndex) {
     this.columns[columnIndex].add(card);
+  }
+
+  addLadderToColumn(cards, columnIndex) {
+    cards.forEach(card => this.columns[columnIndex].add(card));
   }
 }

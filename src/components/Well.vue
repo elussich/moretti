@@ -24,7 +24,7 @@ export default {
     onDroppedCard: Function
   },
   methods: {
-    onDragOver() {
+    onDragOver(event) {
       // @todo abstract out this logic
       const lastCard = this.cardGroup.cards[this.cardGroup.cards.length - 1];
       const draggedCardNumber = +event.dataTransfer.getData("cardNumber");

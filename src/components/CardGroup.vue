@@ -45,7 +45,7 @@ export default {
     isDraggable(card) {
       return this.cardGroup.isLast(card) || this.cardGroup.isLadderHead(card);
     },
-    onDragOver() {
+    onDragOver(event) {
       // @todo abstract out this logic, should it be actually moved to the models?
       const lastCard = this.cardGroup.cards[this.cardGroup.cards.length - 1];
       const draggedCardNumber = +event.dataTransfer.getData("cardNumber");

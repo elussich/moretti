@@ -28,4 +28,7 @@ export default class Card {
   set ladder(ladder) {
     this.ladder = ladder;
   }
+  setGroup(cardGroup) {
+    this.cardGroup = cardGroup;
+  }
 }

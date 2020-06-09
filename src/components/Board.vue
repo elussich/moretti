@@ -48,12 +48,22 @@ export default {
     };
   },
   methods: {
-    onDroppedCard(cardId, columnIndex) {
-      const card = this.pack.removeCardById(cardId);
-      this.pack.addCardToColumn(card, columnIndex);
+    onDroppedCard(cardId, destColumnIndex) {
+      console.log("card dropped:", this.pack.findCardById(cardId));
+      const card = this.pack.findCardById(cardId);
+      if (card.cardGroup.isLadderHead(card)) {
+        const cards = card.cardGroup.getLadder();
+        console.log("card is ladder head, bring in the whole ladder!", cards);
+        card.cardGroup.removeLadder();
+        this.pack.addLadderToColumn(cards, destColumnIndex);
+      } else {
+        card.cardGroup.remove(card);
+        this.pack.addCardToColumn(card, destColumnIndex);
+      }
     },
     onDroppedCardInWell(cardId, wellIndex) {
-      const card = this.pack.removeCardById(cardId);
+      const card = this.pack.findCardById(cardId);
+      card.cardGroup.remove(card);
       this.wells.addCardToWell(card, wellIndex);
     }
   }
