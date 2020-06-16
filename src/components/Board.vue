@@ -27,9 +27,9 @@
 <script>
 import CardGroup from "./CardGroup.vue";
 import Well from "./Well.vue";
-import Cards from "../models/Cards.js";
 import Pack from "../models/Pack.js";
 import Wells from "../models/Wells.js";
+import Cards from "../data/cards.js";
 
 const pack = new Pack(Cards);
 const wells = new Wells();
