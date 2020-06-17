@@ -54,4 +54,7 @@ export default class CardGroup {
   getLadder() {
     return this.cards.filter(card => card.ladder);
   }
+  getLastCard() {
+    return this.cards.length ? this.cards[this.cards.length - 1] : null;
+  }
 }

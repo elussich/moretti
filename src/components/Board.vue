@@ -1,11 +1,11 @@
 <template>
   <div class="flex">
     <div class="grid grid-cols-8 w-10/12">
-      <CardGroup
+      <Column
         class="block mr-4"
-        v-for="(cardGroup, index) in pack.columns"
+        v-for="(column, index) in pack.columns"
         :key="index"
-        :cardGroup="cardGroup"
+        :column="column"
         v-bind:onDroppedCard="onDroppedCard"
       />
     </div>
@@ -16,16 +16,16 @@
           class="bg-gray-100 shadow-inner column--empty"
           v-for="(well, index) in wells.wells"
           :key="index"
-          :cardGroup="well"
+          :well="well"
           v-bind:onDroppedCard="onDroppedCardInWell"
         />
-    </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import CardGroup from "./CardGroup.vue";
+import Column from "./Column.vue";
 import Well from "./Well.vue";
 import Pack from "../models/Pack.js";
 import Wells from "../models/Wells.js";
@@ -38,7 +38,7 @@ export default {
   name: "Board",
   order: 1,
   components: {
-    CardGroup,
+    Column,
     Well
   },
   data() {

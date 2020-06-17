@@ -1,30 +1,47 @@
 <template>
-  <div v-on:dragover="onDragOver" v-on:drop="onDrop" class="relative">
+  <div v-on:dragover="onDragOver" v-on:drop="onDrop" v-bind:class="columnClass">
     <Card
-      class="card--in-well"
-      v-for="card in well.cards"
+      v-for="card in column.cards"
       :key="card.id"
       :card="card"
+      :draggable="isDraggable(card)"
     >
     </Card>
   </div>
 </template>
 
 <script>
-import Well from "../models/Well.js";
+import Column from "../models/Column.js";
 import CardClass from "../models/Card.js";
 import Card from "./Card.vue";
 
 export default {
-  name: "Well",
+  name: "Column",
   components: {
     Card
   },
   props: {
-    well: Well,
+    column: Column,
     onDroppedCard: Function
   },
+  computed: {
+    columnClass() {
+      return this.column.cards.length === 0
+        ? [
+            "border-gray-100",
+            "bg-gray-100",
+            "border",
+            "rounded-lg",
+            "shadow-inner",
+            "column--empty"
+          ]
+        : [];
+    }
+  },
   methods: {
+    isDraggable(card) {
+      return this.column.isLast(card) || this.column.isLadderHead(card);
+    },
     onDragOver(event) {
       const draggedCardNumber = +event.dataTransfer.getData("cardNumber");
       const draggedCardFigure = event.dataTransfer.getData("cardFigure");
@@ -32,14 +49,14 @@ export default {
         figure: draggedCardFigure,
         number: draggedCardNumber
       });
-      if (this.well.willAddCard(tempCard)) {
+      if (this.column.willAddCard(tempCard)) {
         event.preventDefault();
       }
     },
     onDrop(event) {
       event.preventDefault();
       const cardId = event.dataTransfer.getData("cardId");
-      this.onDroppedCard(cardId, this.well.index);
+      this.onDroppedCard(cardId, this.column.index);
     }
   }
 };
