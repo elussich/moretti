@@ -56,7 +56,7 @@ export default {
     onDrop(event) {
       event.preventDefault();
       const cardId = event.dataTransfer.getData("cardId");
-      this.onDroppedCard(cardId, this.column.index);
+      this.onDroppedCard(cardId);
     }
   }
 };

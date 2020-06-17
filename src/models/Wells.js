@@ -13,8 +13,4 @@ export default class Wells {
       this.wells[i] = new Well(i);
     }
   }
-
-  addCardToWell(card, wellIndex) {
-    this.wells[wellIndex].add(card);
-  }
 }

@@ -6,7 +6,7 @@
         v-for="(column, index) in pack.columns"
         :key="index"
         :column="column"
-        v-bind:onDroppedCard="onDroppedCard"
+        v-bind:onDroppedCard="cardId => onDroppedCard(cardId, column)"
       />
     </div>
     <div class="w-2/12 pl-4 border-l border-gray-400">
@@ -17,7 +17,7 @@
           v-for="(well, index) in wells.wells"
           :key="index"
           :well="well"
-          v-bind:onDroppedCard="onDroppedCardInWell"
+          v-bind:onDroppedCard="cardId => onDroppedCardInWell(cardId, well)"
         />
       </div>
     </div>
@@ -48,23 +48,22 @@ export default {
     };
   },
   methods: {
-    onDroppedCard(cardId, destColumnIndex) {
-      console.log("card dropped:", this.pack.findCardById(cardId));
+    onDroppedCard(cardId, column) {
       const card = this.pack.findCardById(cardId);
       if (card.cardGroup.isLadderHead(card)) {
         const cards = card.cardGroup.getLadder();
         console.log("card is ladder head, bring in the whole ladder!", cards);
         card.cardGroup.removeLadder();
-        this.pack.addLadderToColumn(cards, destColumnIndex);
+        this.pack.addLadderToColumn(cards, column.index);
       } else {
         card.cardGroup.remove(card);
-        this.pack.addCardToColumn(card, destColumnIndex);
+        column.add(card);
       }
     },
-    onDroppedCardInWell(cardId, wellIndex) {
+    onDroppedCardInWell(cardId, well) {
       const card = this.pack.findCardById(cardId);
       card.cardGroup.remove(card);
-      this.wells.addCardToWell(card, wellIndex);
+      well.add(card);
     }
   }
 };
