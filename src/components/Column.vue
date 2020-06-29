@@ -4,6 +4,7 @@
       v-for="card in column.cards"
       :key="card.id"
       :card="card"
+      v-bind:dragStart="onDragStart"
       :draggable="isDraggable(card)"
     >
     </Card>
@@ -22,6 +23,8 @@ export default {
   },
   props: {
     column: Column,
+    currentCard: CardClass,
+    onDragStartFrom: Function,
     onDroppedCard: Function
   },
   computed: {
@@ -42,21 +45,17 @@ export default {
     isDraggable(card) {
       return this.column.isLast(card) || this.column.isLadderHead(card);
     },
+    onDragStart(card) {
+      this.onDragStartFrom(card, this.column);
+    },
     onDragOver(event) {
-      const draggedCardNumber = +event.dataTransfer.getData("cardNumber");
-      const draggedCardFigure = event.dataTransfer.getData("cardFigure");
-      const tempCard = new CardClass({
-        figure: draggedCardFigure,
-        number: draggedCardNumber
-      });
-      if (this.column.willAddCard(tempCard)) {
+      if (this.currentCard && this.column.willAddCard(this.currentCard)) {
         event.preventDefault();
       }
     },
     onDrop(event) {
       event.preventDefault();
-      const cardId = event.dataTransfer.getData("cardId");
-      this.onDroppedCard(cardId);
+      this.onDroppedCard(this.currentCard, this.column);
     }
   }
 };

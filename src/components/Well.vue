@@ -5,6 +5,7 @@
       v-for="card in well.cards"
       :key="card.id"
       :card="card"
+      v-bind:dragStart="onDragStart"
     >
     </Card>
   </div>
@@ -22,24 +23,22 @@ export default {
   },
   props: {
     well: Well,
+    currentCard: CardClass,
     onDroppedCard: Function
   },
   methods: {
+    // @todo See if we can abstract out these methods into a base component
+    onDragStart(card) {
+      this.onDragStartFrom(card, this.well);
+    },
     onDragOver(event) {
-      const draggedCardNumber = +event.dataTransfer.getData("cardNumber");
-      const draggedCardFigure = event.dataTransfer.getData("cardFigure");
-      const tempCard = new CardClass({
-        figure: draggedCardFigure,
-        number: draggedCardNumber
-      });
-      if (this.well.willAddCard(tempCard)) {
+      if (this.currentCard && this.well.willAddCard(this.currentCard)) {
         event.preventDefault();
       }
     },
     onDrop(event) {
       event.preventDefault();
-      const cardId = event.dataTransfer.getData("cardId");
-      this.onDroppedCard(cardId);
+      this.onDroppedCard(this.currentCard, this.well);
     }
   }
 };

@@ -1,5 +1,4 @@
 import Card from "@/models/Card.js";
-import CardGroup from "@/models/CardGroup.js";
 
 describe("Card model", () => {
   it("should initialize correctly", () => {
@@ -20,12 +19,5 @@ describe("Card model", () => {
     expect(card.ladder).toBe(false);
     card.ladder = true;
     expect(card.ladder).toBe(true);
-  });
-
-  it("should set card group properly", () => {
-    const card = new Card({ number: 3, figure: "copas" });
-    expect(card.cardGroup).toBe(undefined);
-    card.setGroup(new CardGroup());
-    expect(card.cardGroup instanceof CardGroup).toBe(true);
   });
 });

@@ -4,7 +4,6 @@ export default class CardGroup {
     this.cards = [];
   }
   add(card) {
-    card.setGroup(this);
     this.cards.push(card);
   }
   remove(card) {

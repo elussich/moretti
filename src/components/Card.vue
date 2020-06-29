@@ -14,13 +14,12 @@ export default {
   name: "Card",
   props: {
     card: Object,
-    draggable: Boolean
+    draggable: Boolean,
+    dragStart: Function
   },
   methods: {
     onDragStart(event) {
-      event.dataTransfer.setData("cardId", this.card.id);
-      event.dataTransfer.setData("cardNumber", this.card.number);
-      event.dataTransfer.setData("cardFigure", this.card.figure);
+      this.dragStart(this.card);
       event.dataTransfer.effectAllowed = "move";
       event.dataTransfer.dropEffect = "move";
     }

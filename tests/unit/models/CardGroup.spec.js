@@ -15,12 +15,6 @@ describe("CardGroup model", () => {
       cardGroup.add(card);
       expect(cardGroup.cards[0]).toBe(card);
     });
-    it("should set `cardGroup` property to the current card group, for the added card", () => {
-      const cardGroup = new CardGroup(0);
-      const card = new Card({ number: 1, figure: "oros" });
-      cardGroup.add(card);
-      expect(card.cardGroup).toBe(cardGroup);
-    });
   });
 
   describe("`findCardById` method", () => {
