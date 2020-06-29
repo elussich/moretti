@@ -5,7 +5,7 @@
         class="block mr-4"
         v-for="(column, index) in pack.columns"
         :key="index"
-        :column="column"
+        :cardGroup="column"
         :currentCard="currentCard"
         v-bind:onDragStartFrom="onDragStartFrom"
         v-bind:onDroppedCard="onDroppedCard"
@@ -18,8 +18,9 @@
           class="bg-gray-100 shadow-inner column--empty"
           v-for="(well, index) in wells.wells"
           :key="index"
-          :well="well"
+          :cardGroup="well"
           :currentCard="currentCard"
+          v-bind:onDragStartFrom="onDragStartFrom"
           v-bind:onDroppedCard="onDroppedCardInWell"
         />
       </div>
@@ -60,7 +61,6 @@ export default {
     onDroppedCard(card, column) {
       if (this.origin.isLadderHead(card)) {
         const cards = this.origin.getLadder();
-        console.log("card is ladder head, bring in the whole ladder!", cards);
         this.origin.removeLadder();
         this.pack.addLadderToColumn(cards, column.index);
       } else {

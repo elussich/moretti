@@ -21,4 +21,5 @@ export default class CardGroup {
   getLastCard() {
     return this.cards.length ? this.cards[this.cards.length - 1] : null;
   }
+  isLadderHead() {}
 }

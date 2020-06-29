@@ -2,10 +2,11 @@
   <div v-on:dragover="onDragOver" v-on:drop="onDrop" class="relative">
     <Card
       class="card--in-well"
-      v-for="card in well.cards"
+      v-for="card in cardGroup.cards"
       :key="card.id"
       :card="card"
       v-bind:dragStart="onDragStart"
+      :draggable="isDraggable(card)"
     >
     </Card>
   </div>
@@ -14,6 +15,7 @@
 <script>
 import Well from "../models/Well.js";
 import CardClass from "../models/Card.js";
+import cardGroup from "../mixins/cardGroup.js";
 import Card from "./Card.vue";
 
 export default {
@@ -21,25 +23,12 @@ export default {
   components: {
     Card
   },
+  mixins: [cardGroup],
   props: {
-    well: Well,
+    cardGroup: Well,
     currentCard: CardClass,
+    onDragStartFrom: Function,
     onDroppedCard: Function
-  },
-  methods: {
-    // @todo See if we can abstract out these methods into a base component
-    onDragStart(card) {
-      this.onDragStartFrom(card, this.well);
-    },
-    onDragOver(event) {
-      if (this.currentCard && this.well.willAddCard(this.currentCard)) {
-        event.preventDefault();
-      }
-    },
-    onDrop(event) {
-      event.preventDefault();
-      this.onDroppedCard(this.currentCard, this.well);
-    }
   }
 };
 </script>

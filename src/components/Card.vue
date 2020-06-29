@@ -10,10 +10,12 @@
 </template>
 
 <script>
+import Card from "../models/Card.js";
+
 export default {
   name: "Card",
   props: {
-    card: Object,
+    card: Card,
     draggable: Boolean,
     dragStart: Function
   },

@@ -65,4 +65,11 @@ describe("CardGroup model", () => {
       expect(cardGroup.isLast(card3)).toBe(true);
     });
   });
+
+  describe("`isLadderHead` method", () => {
+    it("should be a no-op method", () => {
+      const cardGroup = new CardGroup(0);
+      expect(cardGroup.isLadderHead()).toBe(undefined);
+    });
+  });
 });

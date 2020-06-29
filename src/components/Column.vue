@@ -1,7 +1,7 @@
 <template>
   <div v-on:dragover="onDragOver" v-on:drop="onDrop" v-bind:class="columnClass">
     <Card
-      v-for="card in column.cards"
+      v-for="card in cardGroup.cards"
       :key="card.id"
       :card="card"
       v-bind:dragStart="onDragStart"
@@ -14,6 +14,7 @@
 <script>
 import Column from "../models/Column.js";
 import CardClass from "../models/Card.js";
+import cardGroup from "../mixins/cardGroup.js";
 import Card from "./Card.vue";
 
 export default {
@@ -21,15 +22,16 @@ export default {
   components: {
     Card
   },
+  mixins: [cardGroup],
   props: {
-    column: Column,
+    cardGroup: Column,
     currentCard: CardClass,
     onDragStartFrom: Function,
     onDroppedCard: Function
   },
   computed: {
     columnClass() {
-      return this.column.cards.length === 0
+      return this.cardGroup.cards.length === 0
         ? [
             "border-gray-100",
             "bg-gray-100",
@@ -39,23 +41,6 @@ export default {
             "column--empty"
           ]
         : [];
-    }
-  },
-  methods: {
-    isDraggable(card) {
-      return this.column.isLast(card) || this.column.isLadderHead(card);
-    },
-    onDragStart(card) {
-      this.onDragStartFrom(card, this.column);
-    },
-    onDragOver(event) {
-      if (this.currentCard && this.column.willAddCard(this.currentCard)) {
-        event.preventDefault();
-      }
-    },
-    onDrop(event) {
-      event.preventDefault();
-      this.onDroppedCard(this.currentCard, this.column);
     }
   }
 };
