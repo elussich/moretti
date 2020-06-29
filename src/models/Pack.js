@@ -31,12 +31,6 @@ export default class Pack {
     }
   }
 
-  findCardById(cardId) {
-    return this.columns
-      .find(column => column.findCardById(cardId))
-      .findCardById(cardId);
-  }
-
   addCardToColumn(card, columnIndex) {
     this.columns[columnIndex].add(card);
   }

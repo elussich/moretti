@@ -31,17 +31,6 @@ describe("Pack model", () => {
     expect(cardsList.join("")).not.toEqual(cardsList2.join(""));
   });
 
-  describe("findCardById method", () => {
-    it("should return corresponding card, by the passed ID", () => {
-      const pack = new Pack(cards);
-      // pick first card of first column, randomly
-      const randomCard = pack.columns[0].cards[0];
-      // use that card id to exercise the method and check they are the same card
-      const foundCard = pack.findCardById(randomCard.id);
-      expect(foundCard).toBe(randomCard);
-    });
-  });
-
   describe("addCardToColumn method", () => {
     it("should add a passed card to the end of the column, indicated by its index", () => {
       const pack = new Pack(cards);

@@ -17,21 +17,6 @@ describe("CardGroup model", () => {
     });
   });
 
-  describe("`findCardById` method", () => {
-    it("should return the card corresponding to the passed id", () => {
-      const cardGroup = new CardGroup(0);
-      const card = new Card({ number: 1, figure: "oros" });
-      cardGroup.add(card);
-      expect(cardGroup.findCardById("oros-1")).toBe(card);
-    });
-    it("should return undefined if no match found", () => {
-      const cardGroup = new CardGroup(0);
-      const card = new Card({ number: 1, figure: "oros" });
-      cardGroup.add(card);
-      expect(cardGroup.findCardById("copas-2")).toBe(undefined);
-    });
-  });
-
   describe("`remove` method", () => {
     it("should remove the passed card from the inner cards array, if found", () => {
       const cardGroup = new CardGroup(0);
