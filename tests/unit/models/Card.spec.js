@@ -11,6 +11,7 @@ describe("Card model", () => {
     expect(card.id).toBe("oros-9");
     expect(card.name).toBe("9 de oros");
     expect(card.ladder).toBe(false);
+    expect(card.willReceive).toBe(false);
     expect(card.symbol).toBe("🌞");
   });
 

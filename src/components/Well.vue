@@ -1,5 +1,11 @@
 <template>
-  <div v-on:dragover="onDragOver" v-on:drop="onDrop" class="relative">
+  <div
+    v-on:dragover="onDragOver"
+    v-on:dragleave="onDragLeave"
+    v-on:drop="onDrop"
+    class="relative"
+    v-bind:class="{ 'bg-green-100': cardGroup.willReceive }"
+  >
     <Card
       class="card--in-well"
       v-for="card in cardGroup.cards"

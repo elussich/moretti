@@ -4,6 +4,7 @@ import CardGroup from "@/models/CardGroup.js";
 describe("CardGroup model", () => {
   it("should initialize correctly", () => {
     const cardGroup = new CardGroup(1);
+    expect(cardGroup.willReceive).toBe(false);
     expect(cardGroup.index).toBe(1);
     expect(cardGroup.cards.length).toBe(0);
   });

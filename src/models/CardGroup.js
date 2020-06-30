@@ -1,4 +1,5 @@
 export default class CardGroup {
+  willReceive = false;
   constructor(index) {
     this.index = index;
     this.cards = [];

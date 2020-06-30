@@ -1,5 +1,10 @@
 <template>
-  <div v-on:dragover="onDragOver" v-on:drop="onDrop" v-bind:class="columnClass">
+  <div
+    v-on:dragover="onDragOver"
+    v-on:dragleave="onDragLeave"
+    v-on:drop="onDrop"
+    v-bind:class="columnClass"
+  >
     <Card
       v-for="card in cardGroup.cards"
       :key="card.id"
@@ -38,7 +43,8 @@ export default {
             "border",
             "rounded-lg",
             "shadow-inner",
-            "column--empty"
+            "column--empty",
+            this.cardGroup.willReceive && "bg-green-100"
           ]
         : [];
     }

@@ -1,5 +1,6 @@
 export default class Card {
   ladder = false;
+  willReceive = false;
   constructor(config) {
     const { number, figure } = config;
     this.number = number;
@@ -24,8 +25,5 @@ export default class Card {
         break;
     }
     return str;
-  }
-  set ladder(ladder) {
-    this.ladder = ladder;
   }
 }

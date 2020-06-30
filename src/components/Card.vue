@@ -3,6 +3,7 @@
     v-bind:draggable="draggable"
     v-on:dragstart="onDragStart"
     class="card border-gray-400 border rounded-lg p-3 bg-gray-100 shadow-lg"
+    v-bind:class="{ 'bg-green-100': card.willReceive }"
   >
     <span class="pr-2">{{ card.symbol }}</span>
     <span>{{ card.number }}</span>
